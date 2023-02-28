@@ -10,56 +10,11 @@
         d-flex flex-column align-items-center
         w-auto
         ">
-            <form action="/salvar_notas" method="POST" class="
-            d-flex flex-column justify-content-around align-items-center
-            border border-success border-3
-            w-100
-            px-2
-            ">
-                <h2 class="
-                text-success
-                pt-3 pb-4
-                ">Criar Anotação</h2>
-                <div class="
-                d-flex flex-column align-items-start gap-2
-                w-100
-                ">
-                    <label for="" class="ms-3 form-label">Titulo</label>
-                    <input class="form-control" type="text" placeholder="Digite o titulo" name="titulo">
-                </div>
-
-                <div class="
-                d-flex flex-column align-items-start gap-2
-                w-100
-                ">
-                    <label for="" class="ms-3 form-label">Nivel</label>
-                    <select name="nivel" class="form-select">
-                        <option value="basico">Basico</option>
-                        <option value="intermediario">Intermediário</option>
-                        <option value="avancado">Avançado</option>
-                    </select>
-                </div>
-
-                <div class="
-                d-flex flex-column align-items-start gap-2
-                w-100
-                ">
-                    <label for="" class="ms-3 form-label">Descrição</label>
-                    <textarea
-                        class="form-control"
-                        name="descricao"
-                        cols="30"
-                        rows="10"
-                        placeholder="Digite sua anotação"
-                        style="resize: none"
-                    ></textarea>
-                </div>
-
-                <button class="
-                btn btn-info btn-lg
-                my-3
-                ">Registrar</button>
-            </form>
+            <x-form
+                :action="route('notes.store')"
+                :button="'Criar'"
+                :update="false"
+            />
         </section>
 
         <section class="
@@ -71,23 +26,54 @@
             fs-1 text-uppercase
             pt-2 pb-3
             ">Sua anotações</h3>
-            <ul>
+            <ul class="
+            list-group list-group-flush
+            w-100
+            h-50
+            overflow-scroll
+            ">
                 @foreach($notes as $note)
-                <li>
-                    <h3><?php echo $note->titulo; ?></h3>
-                    @if($note->nivel === "basico")
-                        <span class="text-black bg-success">{{$note->nivel}}</span>
-                    @elseif($note->nivel === "intermediario")
-                        <span class="text-black bg-warning">{{$note->nivel}}</span>
-                    @else
-                        <span class="text-black bg-danger">{{$note->nivel}}</span>
-                    @endif
-                    <p>
-                        <?php echo $note->descricao; ?>
-                    </p>
+                <li class="
+                d-flex justify-content-between align-items-center
+                list-group-item
+                w-100
+                ">
+                    <div class="
+                    d-flex flex-column gap-2 justify-content-start align-items-start
+                    ">
+                        <h3 class="
+                        text-success text-decoration-underline fw-bold t
+                        "><?php echo $note->titulo; ?></h3>
+                        @if($note->nivel === "basico")
+                            <span class="text-black bg-success p-1 rounded-3">{{$note->nivel}}</span>
+                        @elseif($note->nivel === "intermediario")
+                            <span class="text-black bg-warning p-1 rounded-3">{{$note->nivel}}</span>
+                        @else
+                            <span class="text-black bg-danger p-1 rounded-3">{{$note->nivel}}</span>
+                        @endif
+                        <p class="
+                        text-wrap text-break
+                        ">
+                                <?php echo $note->descricao; ?>
+                        </p>
+                    </div>
+                    <div class="
+                    ms-3
+                    d-flex flex-column gap-3
+                    ">
+                        <a href="{{ route('notes.edit', $note->id) }}" class="btn btn-info">Editar</a>
+
+                        <form action="{{ route('notes.destroy', $note->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
                 </li>
                 @endforeach
             </ul>
         </section>
+
+
     </main>
 </x-layout>

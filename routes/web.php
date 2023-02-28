@@ -17,7 +17,9 @@ Route::get('/', function () {
     return redirect('/notes');
 });
 
-Route::resource('/notes', \App\Http\Controllers\NotesController::class);
+Route::resource('/notes', \App\Http\Controllers\NotesController::class)
+    ->except(['show']);
 
 Route::get('/register', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
 Route::post('/register' ,[\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+
