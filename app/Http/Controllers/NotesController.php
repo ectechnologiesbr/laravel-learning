@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NotesFormRequest;
 use App\Models\Notes;
+use App\Models\User;
 use App\Repositories\NotesRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotesController
 {
@@ -12,11 +15,21 @@ class NotesController
     {
 
     }
-    public function index()
+    public function index(Request $request)
     {
-        $notes = Notes::all();
 
-        return view('notes.index')->with('notes', $notes);
+        $user = Auth::user();
+        $notes = Notes::where('user_id', $user->id);
+
+        $nivel_list = $request->nivel_list;
+
+        if($nivel_list){
+            $notes->where('nivel', $nivel_list);
+        }
+
+        $notes = $notes->get();
+
+        return view('notes.index')->with('notes', $notes)->with('nivel_list', $nivel_list);
     }
 
     public function create()
@@ -48,7 +61,6 @@ class NotesController
     {
         $note->fill($request->all());
         $note->save();
-
         return to_route('notes.index');
     }
 

@@ -7,5 +7,5 @@ use App\Models\Notes;
 
 interface NotesRepository
 {
-    public function add(NotesFormRequest $request): Notes;
+    public function add(NotesFormRequest $request);
 }

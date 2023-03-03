@@ -7,5 +7,5 @@
         bg-success
         ">
     <h1 class="text-light text-uppercase fs-1">Study Notes</h1>
-    <a class="btn btn-light">Sair</a>
+    <a href="{{ route('logout') }}" class="btn btn-light">Sair</a>
 </header>

@@ -1,5 +1,5 @@
 <form action="{{ $action }}" method="post" class="
-            d-flex flex-column justify-content-around align-items-center
+            d-flex flex-column justify-content-around align-items-center gap-2
             border border-success border-3 rounded-2
             w-100
             px-2
@@ -8,7 +8,7 @@
 
     @if($update) @method('PUT') @endif
 
-    <h2 class="text-success pt-3 pb-4">Criar Anotação</h2>
+    <h2 class="text-success pt-3 pb-4">{{ $title }}</h2>
 
     <div class="d-flex flex-column align-items-start gap-2 w-100">
         <label for="titulo" class="ms-3 form-label">Titulo</label>
@@ -32,7 +32,7 @@
             class="form-select"
             id="nivel"
         >
-            <option value="basico">Basico</option>
+            <option value="basico"s>Basico</option>
             <option value="intermediario">Intermediário</option>
             <option value="avancado">Avançado</option>
         </select>
@@ -51,9 +51,7 @@
             rows="10"
             placeholder="Digite sua anotação"
             style="resize: none"
-        >
-            @isset($descricao){{ $descricao }}@endisset
-        </textarea>
+        >@isset($descricao){{ trim($descricao) }}@endisset</textarea>
     </div>
 
     <button type="submit" class="

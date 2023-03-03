@@ -1,24 +1,14 @@
-<x-layout title="Cadastro">
-
+<x-layout title="Login">
     <main class="
     w-100 vh-100
     d-flex flex-column justify-content-center align-items-center
     ">
-        <div class="w-25 d-flex flex-column justify-content-center align-items-center">
-            <a class="mb-4 btn btn-outline-info align-self-end" href="{{ route('login') }}">Voltar</a>
-            <h1 class="
-                fs-1 fw-bold text-success
-                mb-4
-            ">Cadastrar-se</h1>
-        </div>
-
+        <h1 class="
+        fs-1 fw-bold text-success
+        mb-4
+        ">Login</h1>
         <form method="post" class="w-25 d-flex flex-column">
             @csrf
-            <div class="form-group">
-                <label for="name" class="form-label">Nome</label>
-                <input type="text" name="name" id="name" class="form-control">
-            </div>
-
             <div class="form-group">
                 <label for="email" class="form-label">E-mail</label>
                 <input type="email" name="email" id="email" class="form-control">
@@ -35,8 +25,11 @@
             align-self-center
             w-100
             ">
-                Registrar
+                Entrar
             </button>
+            <span class="mt-2 align-self-center">Não possue conta? <a class="text-decoration-none fw-semibold text-info" href="{{route('users.create')}}">Cadastre-se</a></span>
         </form>
     </main>
+
+
 </x-layout>

@@ -4,5 +4,6 @@
         :update="true"
         :titulo="$note->titulo"
         :descricao="$note->descricao"
+        :title="'Editar Anotação'"
     />
 </x-layout>
